@@ -170,4 +170,51 @@ console.log(rentals);
 console.log(actors);
 console.log(rentalModifications);
 
-//test
+//Exo 1
+function getRental(id)
+{
+	for (var i = 0; i<rentals.length; i++)
+	{
+		if (id == rentals[i].id)
+		{
+			return rentals [i];
+		}
+	}
+	return;	
+}
+
+function getDate(id)
+{
+	var rental = getRental(id);
+	var returnDate = new Date(rental.returnDate);
+	var pickupDate = new Date(rental.pickupDate);
+	var time = 1 + (returnDate -  pickupDate)/(24*3600*1000);
+	return time;
+}
+function computePrice()
+{
+  var rentalDays = 0;
+  var carPricePerDay = 0;
+  var distance = 0;
+  var totalPrice = 0;
+  var pricePerDay = 0;
+
+  for ( var i=0 ; i< rentals.length ; i++)
+  {
+    for ( var j=0 ; j< cars.length ; j++)
+    {
+      if (rentals[i].carId == cars[j].id)
+      {
+        rentalDays= getDays(rentals[i].pickupDate,rentals[i].returnDate);
+        pricePerDay = cars[j].pricePerDay;
+        priceDistance = cars[j].pricePerKm*rentals[i].distance;
+        totalPrice = rentalDays*pricePerDay + priceDistance;
+        rentals[i].price=totalPrice;
+      }
+    }
+
+  }
+  console.log(totalPrice);
+}
+
+
